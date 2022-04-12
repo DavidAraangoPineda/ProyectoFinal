@@ -1,5 +1,4 @@
 #include "Game.h"
-#include "Enemy.h"
 #include <QTimer>
 
 
@@ -14,6 +13,8 @@ Game::Game(QWidget *parent)
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(800,600);
+    scene->clear();
+    setBackgroundBrush(QBrush(QImage(":/sprites/fondos/fondo1.jpg")));
 
 
     // crear el jugador
@@ -26,22 +27,27 @@ Game::Game(QWidget *parent)
 
     scene->addItem(player);
 
-    // crear puntaje
-
-    score = new Score();
-    scene->addItem(score);
-    // creamos la vida
-
-    health =new Health();
-    health->setPos(health->x(),health->y()+25);
-    scene->addItem(health);
-
-    //mostrar enemigos
-    //QTimer *timer = new QTimer();
-    //QObject::connect(timer,SIGNAL(timeout()),player,SLOT(spawn()));
-    //timer->start(2000);
 
     show();
+}
+void Game::assemble_blocks()
+    {
 
+        QList <Floor_Block*> floor_blocks;
+        {
+            int blocksWidth = 0;
+
+            for(int i=0;i < 50;i++){
+
+                if(i == 69){
+                    blocksWidth += 64;
+                }
+                floor_blocks.push_back(new Floor_Block(blocksWidth, floor, false));
+
+                floor_blocks.push_back(new Floor_Block(blocksWidth, floor + 32, false));
+                blocksWidth += 32;
+            }
+        }
 
 }
+
