@@ -1,5 +1,7 @@
 #include "Game.h"
 #include <QTimer>
+#include <QBrush>
+#include <QImage>
 
 
 Game::Game(QWidget *parent)
@@ -14,13 +16,14 @@ Game::Game(QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(800,600);
     scene->clear();
-    setBackgroundBrush(QBrush(QImage(":/sprites/fondos/fondo1.jpg")));
+    setBackgroundBrush(QBrush(QImage(":imagenes/fondo.png")));
 
 
     // crear el jugador
 
     player = new Player();
-    player->setRect(0,0,20,40);
+    //player->setRect(0,0,20,40);
+    player->setPixmap(QPixmap(":/imagenes/nave.png"));
     player->setPos(400,500);
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
@@ -49,5 +52,7 @@ void Game::assemble_blocks()
             }
         }
 
+
 }
+
 

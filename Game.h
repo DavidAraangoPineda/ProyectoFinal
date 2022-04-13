@@ -2,8 +2,9 @@
 #define GAME_H
 
 #include <QGraphicsView>
-#include <QGraphicsScene>
 #include <QWidget>
+#include <QGraphicsScene>
+#include <QGraphicsRectItem>
 #include "Player.h"
 #include "floor_block.h"
 #include "blocks.h"

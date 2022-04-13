@@ -4,7 +4,7 @@
 #include <QTimer>
 #include <Game.h>
 #include <iostream>
-Player::Player(QGraphicsItem *parent)
+Player::Player(QGraphicsItem *parent):QGraphicsPixmapItem(parent)
 {
     QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(movePlayer()));
@@ -69,13 +69,15 @@ void Player::movePlayer()
         velY += 0.15;
     }
 
-    if (pos().y()+rect().height()>scene()->height())
-    {
-        isCollidingBottom=true;
-    }
+//    if (pos().y()+rect().height()>scene()->height())
+//    {
+//        isCollidingBottom=true;
+//    }
 
     setPos(x() + velX, y() + velY);
 }
+
+
 
 
 

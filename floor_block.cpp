@@ -4,9 +4,9 @@ Floor_Block::Floor_Block(qreal x, qreal y, bool terrain, QGraphicsItem * parent)
 {
     setZValue(10);
     if(!terrain){
-        setPixmap(QPixmap(":/sprites/blocks/brick_normal.png"));
+        setPixmap(QPixmap(":/imagenes/descarga.jpg"));
     }else {
-        setPixmap(QPixmap(":/sprites/blocks/brick_normal.png"));
+        setPixmap(QPixmap(":/imagenes/descarga.jpg"));
     }
 
 //    box = new QGraphicsRectItem

@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/imagenes">
+        <file>fondo.jpg</file>
+        <file>nave.png</file>
+        <file>descarga.jpg</file>
+    </qresource>
+</RCC>

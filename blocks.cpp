@@ -2,7 +2,7 @@
 
 blocks::blocks(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 {
-    setPixmap(QPixmap(":/sprites/world/brick_normal.png"));
+    setPixmap(QPixmap(":/imagenes/descarga.jpg"));
     setZValue(-1);
 }
 
