@@ -2,6 +2,6 @@
     <qresource prefix="/imagenes">
         <file>fondo.jpg</file>
         <file>nave.png</file>
-        <file>descarga.jpg</file>
+        <file>bloque.jpg</file>
     </qresource>
 </RCC>

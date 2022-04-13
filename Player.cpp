@@ -4,7 +4,9 @@
 #include <QTimer>
 #include <Game.h>
 #include <iostream>
-Player::Player(QGraphicsItem *parent):QGraphicsPixmapItem(parent)
+
+
+Player::Player(QGraphicsItem *parent)
 {
     QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(movePlayer()));

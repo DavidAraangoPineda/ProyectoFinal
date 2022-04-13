@@ -2,7 +2,7 @@
 
 blocks::blocks(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 {
-    setPixmap(QPixmap(":/imagenes/descarga.jpg"));
+    setPixmap(QPixmap(":/imagenes/bloque.jpg"));
     setZValue(-1);
 }
 

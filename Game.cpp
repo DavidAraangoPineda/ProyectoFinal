@@ -2,8 +2,7 @@
 #include <QTimer>
 #include <QBrush>
 #include <QImage>
-
-
+#include <QGraphicsRectItem>
 Game::Game(QWidget *parent)
 {
     // crear la scena
@@ -16,43 +15,38 @@ Game::Game(QWidget *parent)
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(800,600);
     scene->clear();
-    setBackgroundBrush(QBrush(QImage(":imagenes/fondo.png")));
+    //scene->setBackgroundBrush(QBrush(QImage(":imagenes/fondo.jpg")));
+    scene->setBackgroundBrush(QBrush("#000000"));
 
 
     // crear el jugador
 
     player = new Player();
     //player->setRect(0,0,20,40);
-    player->setPixmap(QPixmap(":/imagenes/nave.png"));
+    player->setPixmap(QPixmap(":/imagenes/nave.png").scaled(100,100));
     player->setPos(400,500);
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
 
     scene->addItem(player);
-
-
+    assemble_blocks();
     show();
 }
+
+
 void Game::assemble_blocks()
     {
-
-        QList <Floor_Block*> floor_blocks;
+        QList <blocks*> brick_blocks;
         {
-            int blocksWidth = 0;
-
-            for(int i=0;i < 50;i++){
-
-                if(i == 69){
-                    blocksWidth += 64;
-                }
-                floor_blocks.push_back(new Floor_Block(blocksWidth, floor, false));
-
-                floor_blocks.push_back(new Floor_Block(blocksWidth, floor + 32, false));
-                blocksWidth += 32;
-            }
-        }
-
+    blocks *bloque1 = new blocks();
+    bloque1->setPos(400,500);
+    bloque1->setSize(1);
+    brick_blocks.push_back(bloque1);
+    scene->addItem(bloque1);
+    show();
 
 }
+}
+
 
 

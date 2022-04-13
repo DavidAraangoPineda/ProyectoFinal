@@ -5,8 +5,10 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsItem>
 #include <QImage>
+#include <QGraphicsRectItem>
 
 class Player: public QObject, public QGraphicsPixmapItem{
+//class Player: public QObject, public QGraphicsRectItem{
     Q_OBJECT
 
 public:
