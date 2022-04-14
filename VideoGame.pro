@@ -11,14 +11,14 @@ CONFIG += c++11
 SOURCES += \
     Game.cpp \
     Player.cpp \
-    blocks.cpp \
+    block.cpp \
     floor_block.cpp \
     main.cpp
 
 HEADERS += \
     Game.h \
     Player.h \
-    blocks.h \
+    block.h \
     floor_block.h
 
 # Default rules for deployment.

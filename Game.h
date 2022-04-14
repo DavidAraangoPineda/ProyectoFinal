@@ -7,8 +7,7 @@
 #include <QGraphicsRectItem>
 #include "Player.h"
 #include "floor_block.h"
-#include "blocks.h"
-
+#include "block.h"
 
 
 class Game: public QGraphicsView{
@@ -21,6 +20,7 @@ public:
 
     QGraphicsScene *scene;
     Player * player;
+    block * block;
     void menu();
     int floor = 416;
 public slots:

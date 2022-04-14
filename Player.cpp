@@ -1,17 +1,24 @@
-#include "Player.h"
 #include <QGraphicsScene>
 #include <QKeyEvent>
 #include <QTimer>
-#include <Game.h>
 #include <iostream>
+#include <QList>
+#include "Player.h"
+#include <block.h>
+#include <Game.h>
 
 
 Player::Player(QGraphicsItem *parent)
 {
     QTimer * timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),this,SLOT(movePlayer()));
+    connect(timer,SIGNAL(timeout()),this,SLOT(movePlayer2()));
      //start the timer
-    timer->start(50);
+    timer->start(20);
+}
+void Player::update(){
+
+    movePlayer();
+    //colliding_block();
 }
 void Player::keyPressEvent(QKeyEvent *event)
 {
@@ -66,21 +73,84 @@ void Player::movePlayer()
     {
         jumpCounter = jumpCounterMax;
     }
-    if (!isCollidingBottom && velY < gravityMaxSpeed)
+    if (isCollidingBottom==false && velY < gravityMaxSpeed)
     {
         velY += 0.15;
+    }
+    if (isCollidingBottom==true)
+    {
+        velY = 0;
     }
 
 //    if (pos().y()+rect().height()>scene()->height())
 //    {
-//        isCollidingBottom=true;
+
 //    }
 
     setPos(x() + velX, y() + velY);
+    QList <QGraphicsItem *> colliding_items = collidingItems();
+    for(int i = 0, n=colliding_items.size();i<n;++i){
+        if(typeid(*(colliding_items[i]))==typeid (block)){
+            isCollidingBottom=true;
+            //std::cout<<"adadada";
+
+        }
+    }
 }
+void Player::movePlayer2()
+{
+        isCollidingBottom=false;
+
+    QList <QGraphicsItem *> colliding_items = collidingItems();
+    for(int i = 0, n=colliding_items.size();i<n;++i)
+    {
+        if(typeid(*(colliding_items[i]))==typeid (block)){
+            isCollidingBottom=true;}
+    }
+
+    if (isMovingLeft){
+        velX += ((-1 * maxSpeed) - velX) * accl;
+    }
+
+    if (isMovingRight)
+    {
+        velX += ((1 * maxSpeed) - velX) * accl;
+    }
+
+    if (isMovingLeft==false && isMovingRight==false)
+    {
+        velX *= 0.7;
+    }
+
+    if (!isMovingLeft && !isMovingRight && velX > -0.005 && velX < 0.005){
+        velX = 0;
+    }
+
+    if (isJumping && jumpCounter < jumpCounterMax)
+    {
+        velY = -3;
+        jumpCounter++;
+    }
+    if (isCollidingBottom==false)
+    {
+        velY += 0.5;
+    }
+
+    if (isCollidingBottom==true&&isJumping)
+    {
+        velY -= 10;
+       // std::cout<<"saltandoooo";
+    }
+    if (isCollidingBottom==true&&velY>0)
+    {
+        velY = 0;
+    }
+setPos(x() + velX, y() + velY);
+
+
+        //else{isCollidingBottom=false;std::cout<<"Cayendo"<<std::endl;}
 
 
 
 
-
-
+}
