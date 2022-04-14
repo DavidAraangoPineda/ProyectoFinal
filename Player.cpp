@@ -1,25 +1,48 @@
-#include <QGraphicsScene>
+#include <QGraphicsRectItem>
+#include <QObject>
+#include <QGraphicsItem>
 #include <QKeyEvent>
-#include <QTimer>
-#include <iostream>
+#include <QDebug>
 #include <QList>
+#include <QProcess>
 #include "Player.h"
 #include <block.h>
 #include <Game.h>
 
-
 Player::Player(QGraphicsItem *parent)
 {
-    QTimer * timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),this,SLOT(movePlayer2()));
-     //start the timer
+
+    setPixmap(QPixmap(":/imagenes/nave.png"));
+
+    player_left = new QGraphicsRectItem(0, 1, 2, 30, this);
+    player_right = new QGraphicsRectItem(30, 1, 2, 30, this);
+    player_top = new QGraphicsRectItem(4, -1, 24, 1, this);
+    player_bottom = new QGraphicsRectItem(4, 32, 24, 1, this);
+
+    //player_left->setPen(Qt::NoPen);
+    //player_right->setPen(Qt::NoPen);
+    //player_top->setPen(Qt::NoPen);
+    //player_bottom->setPen(Qt::NoPen);
+
+
+    player_left -> setRect(0, 1, 2, 30);
+    player_right -> setRect(30, 1, 2, 30);
+    player_top ->  setRect(4, -1, 24, 1);
+    player_bottom ->  setRect(4, 32, 24, 1);
+
+    timer = new QTimer(this);
+   // QTimer * timer = new QTimer(this);
+    connect(timer,SIGNAL(timeout()),this,SLOT(update()));
     timer->start(20);
 }
+
 void Player::update(){
 
+    colliding_block();
     movePlayer();
-    //colliding_block();
+
 }
+
 void Player::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Left)
@@ -46,6 +69,10 @@ void Player::keyReleaseEvent(QKeyEvent *event)
 
 void Player::movePlayer()
 {
+    if(stopGravity)
+        return;
+
+
     if (isMovingLeft){
         velX += ((-1 * maxSpeed) - velX) * accl;
     }
@@ -56,101 +83,135 @@ void Player::movePlayer()
     }
 
     if (!isMovingLeft && !isMovingRight)
-    {
         velX *= 0.9;
-    }
 
-    if (!isMovingLeft && !isMovingRight && velX > -0.005 && velX < 0.005){
+    if (!isMovingLeft && !isMovingRight && velX > -0.005 && velX < 0.005)
         velX = 0;
-    }
-
-    if (isJumping && jumpCounter < jumpCounterMax)
-    {
-        velY = -5;
-        jumpCounter++;
-    }
-    else if (!isJumping && jumpCounter > 0)
-    {
-        jumpCounter = jumpCounterMax;
-    }
-    if (isCollidingBottom==false && velY < gravityMaxSpeed)
-    {
-        velY += 0.15;
-    }
-    if (isCollidingBottom==true)
-    {
-        velY = 0;
-    }
-
-//    if (pos().y()+rect().height()>scene()->height())
-//    {
-
-//    }
-
-    setPos(x() + velX, y() + velY);
-    QList <QGraphicsItem *> colliding_items = collidingItems();
-    for(int i = 0, n=colliding_items.size();i<n;++i){
-        if(typeid(*(colliding_items[i]))==typeid (block)){
-            isCollidingBottom=true;
-            //std::cout<<"adadada";
-
-        }
-    }
-}
-void Player::movePlayer2()
-{
-        isCollidingBottom=false;
-
-    QList <QGraphicsItem *> colliding_items = collidingItems();
-    for(int i = 0, n=colliding_items.size();i<n;++i)
-    {
-        if(typeid(*(colliding_items[i]))==typeid (block)){
-            isCollidingBottom=true;}
-    }
-
-    if (isMovingLeft){
-        velX += ((-1 * maxSpeed) - velX) * accl;
-    }
-
-    if (isMovingRight)
-    {
-        velX += ((1 * maxSpeed) - velX) * accl;
-    }
-
-    if (isMovingLeft==false && isMovingRight==false)
-    {
-        velX *= 0.7;
-    }
-
-    if (!isMovingLeft && !isMovingRight && velX > -0.005 && velX < 0.005){
-        velX = 0;
-    }
 
     if (isJumping && jumpCounter < jumpCounterMax)
     {
         velY = -3;
         jumpCounter++;
+        isMidJump = true;
     }
-    if (isCollidingBottom==false)
+    else if (!isJumping && jumpCounter > 0)
     {
-        velY += 0.5;
+        jumpCounter = jumpCounterMax;
+        isMidJump = false;
     }
 
-    if (isCollidingBottom==true&&isJumping)
+    if (!isCollidingBottom && velY < gravityMaxSpeed)
     {
-        velY -= 10;
-       // std::cout<<"saltandoooo";
+        velY += 0.15;
+        if (!isMidJump)
+            jumpCounter = jumpCounterMax;
     }
-    if (isCollidingBottom==true&&velY>0)
-    {
+
+    if (isCollidingLeft && velX < 0)
+        velX = 0;
+
+    if (isCollidingRight && velX > 0)
+        velX = 0;
+
+    if (isCollidingBottom && velY > 0)
         velY = 0;
-    }
-setPos(x() + velX, y() + velY);
+
+    if (isCollidingTop && velY < 0)
+        velY = 0;
 
 
-        //else{isCollidingBottom=false;std::cout<<"Cayendo"<<std::endl;}
-
-
-
-
+    setPos(x() + velX, y() + velY);
 }
+
+void Player::colliding_block()
+{
+    if(stopGravity){return;}
+
+
+    if (player_bottom->collidingItems().size() > 0)
+    {
+        for (QGraphicsItem *colliding_item : player_bottom->collidingItems())
+        {
+            if (typeid(*colliding_item) == typeid(block))
+            {
+                isCollidingBottom = true;
+
+                if (colliding_item->y() != y() + pixmap().height())
+                    setPos(x(), colliding_item->y() - pixmap().height());
+
+                if (!isJumping)
+                    jumpCounter = 0;
+            }
+            else
+            {
+                isCollidingBottom = false;
+            }
+        }
+    }
+    else
+    {
+        isCollidingBottom = false;
+    }
+
+    if (player_top->collidingItems().size() > 0)
+    {
+        for (QGraphicsItem *colliding_item : player_top->collidingItems())
+        {
+            if (typeid(*colliding_item) == typeid(block))
+            {
+                isCollidingTop = true;
+                if (isMidJump)
+                    jumpCounter = jumpCounterMax;
+            }
+            else
+            {
+                isCollidingTop = false;
+            }
+        }
+    }
+    else
+    {
+        isCollidingTop = false;
+    }
+
+
+    if (player_right->collidingItems().size() > 0)
+    {
+        for (QGraphicsItem *colliding_item : player_right->collidingItems())
+        {
+            if (typeid(*colliding_item) == typeid(block))
+            {
+                isCollidingRight = true;
+            }
+            else
+            {
+                isCollidingRight = false;
+            }
+        }
+    }
+    else
+    {
+        isCollidingRight = false;
+    }
+
+    if (player_left->collidingItems().size() > 0)
+    {
+        for (QGraphicsItem *colliding_item : player_left->collidingItems())
+        {
+            if (typeid(*colliding_item) == typeid(block))
+            {
+                isCollidingLeft = true;
+            }
+            else
+            {
+                isCollidingLeft = false;
+            }
+        }
+    }
+    else
+    {
+        isCollidingLeft = false;
+    }
+
+    }
+

@@ -6,9 +6,10 @@
 #include <QGraphicsItem>
 #include <QImage>
 #include <QGraphicsRectItem>
+#include <QTimer>
 
 //class Player: public QObject, public QGraphicsPixmapItem,public QGraphicsRectItem{
-class Player: public QObject, public QGraphicsRectItem{
+class Player: public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 
 public:
@@ -17,20 +18,23 @@ public:
     void keyPressEvent(QKeyEvent * event) override;
     void keyReleaseEvent(QKeyEvent * event) override;
     void colliding_block();
-    void update();
-public slots:
     void movePlayer();
-    void movePlayer2();
+
+public slots:
+    void update();
+
+
+
+
 
 private:
-    float accl = 2;
-    float maxSpeed = 3;
-    float jumpCounterMax = 40;
+    float accl = 0.10;
+    float maxSpeed = 1.8;
+    float jumpCounterMax = 20;
     float jumpCounter = 0;
     float gravityMaxSpeed = 3;
     float velX = 0;
     float velY = 0;
-
     bool isMovingRight=false;
     bool isMovingLeft=false;
     bool isJumping=false;
@@ -38,12 +42,18 @@ private:
     bool isCollidingLeft = false;
     bool isCollidingBottom = false;
     bool isCollidingTop = false;
-    bool isMidJump = false;
+    bool isMidJump = false;   
+    bool stopControls = false;
+    bool stopGravity = false;
+
     QGraphicsRectItem * player_bottom;
     QGraphicsRectItem * player_top;
     QGraphicsRectItem * player_right;
     QGraphicsRectItem * player_left;
+    QGraphicsRectItem * player_precise_top;
+    QGraphicsRectItem * player_precise_bottom;
 
+    QTimer *timer;
 };
 
 #endif // PLAYER_H

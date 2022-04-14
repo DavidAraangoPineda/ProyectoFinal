@@ -3,40 +3,56 @@
 #include <QBrush>
 #include <QImage>
 #include <QGraphicsRectItem>
-
+#define X_SIZE 600
+#define Y_SIZE 500
 Game::Game(QWidget *parent)
 {
     // crear la scena
 
     scene = new QGraphicsScene();
-    scene->setSceneRect(0,0,800,600);
+    scene->setSceneRect(0,0,X_SIZE,Y_SIZE);
     setScene(scene);
 
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setFixedSize(800,600);
+    setFixedSize(X_SIZE,Y_SIZE);
     scene->clear();
     //scene->setBackgroundBrush(QBrush(QImage(":imagenes/fondo.jpg")));
-    scene->setBackgroundBrush(QBrush("#FFFFFF"));
+    //scene->setBackgroundBrush(QBrush("#FFFFFF"));
 
 
     // crear el jugador
 
     player = new Player();
-    player->setRect(0,0,20,40);
+    //player->setRect(0,0,20,40);
     //player->setPixmap(QPixmap(":/imagenes/nave.png").scaled(100,100));
-    player->setPos(400,500);
+    player->setPos(100,400);
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
+    scene->addItem(player);
+
 
 
     block = new class block();
     block->setRect(0,0,800,50);
-    block->setPos(0,550);
-
+    block->setPos(0,450);
     scene->addItem(block);
-    scene->addItem(player);
-    //assemble_blocks();
+
+    block = new class block();
+    block->setRect(0,0,50,50);
+    block->setPos(0,370);
+    scene->addItem(block);
+
+    block = new class block();
+    block->setRect(0,0,50,50);
+    block->setPos(100,320);
+    scene->addItem(block);
+
+    block = new class block();
+    block->setRect(0,0,50,50);
+    block->setPos(100,320);
+    scene->addItem(block);
+
     show();
 }
 

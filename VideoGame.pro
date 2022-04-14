@@ -12,6 +12,7 @@ SOURCES += \
     Game.cpp \
     Player.cpp \
     block.cpp \
+    cubo.cpp \
     floor_block.cpp \
     main.cpp
 
@@ -19,6 +20,7 @@ HEADERS += \
     Game.h \
     Player.h \
     block.h \
+    cubo.h \
     floor_block.h
 
 # Default rules for deployment.

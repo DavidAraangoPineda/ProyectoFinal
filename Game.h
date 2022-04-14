@@ -22,7 +22,6 @@ public:
     Player * player;
     block * block;
     void menu();
-    int floor = 416;
 public slots:
     //void start();
 
