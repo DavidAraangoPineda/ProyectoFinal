@@ -1,14 +1,16 @@
 #include "block.h"
-
+#include <QBrush>
 //block::block(QGraphicsItem *parent): QGraphicsPixmapItem(parent)
 block::block(QGraphicsItem *parent): QGraphicsRectItem(parent)
 {
     //block->setPos()
-    //setPixmap(QPixmap(":/imagenes/bloque.jpg"));
-    //setZValue(-1);
+    QBrush brush;
+    brush.setStyle(Qt::Dense2Pattern);
+    brush.setColor(Qt::gray);
+    setBrush(brush);
 }
 
-//void block::setSize(int size)
+//void block::setNivel(int nivel)
 //{
 //    block_size = size;
 

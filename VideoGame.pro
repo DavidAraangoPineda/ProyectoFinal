@@ -1,5 +1,5 @@
-QT       += core gui
-
+QT       += core gui \
+          multimedia
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG += c++11
@@ -9,18 +9,20 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Button.cpp \
+    Cube.cpp \
     Game.cpp \
     Player.cpp \
     block.cpp \
-    cubo.cpp \
     floor_block.cpp \
     main.cpp
 
 HEADERS += \
+    Button.h \
+    Cube.h \
     Game.h \
     Player.h \
     block.h \
-    cubo.h \
     floor_block.h
 
 # Default rules for deployment.

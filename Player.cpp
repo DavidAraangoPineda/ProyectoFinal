@@ -12,23 +12,23 @@
 Player::Player(QGraphicsItem *parent)
 {
 
-    setPixmap(QPixmap(":/imagenes/nave.png"));
+    setPixmap(QPixmap(":/imagenes/player.png"));
 
     player_left = new QGraphicsRectItem(0, 1, 2, 30, this);
     player_right = new QGraphicsRectItem(30, 1, 2, 30, this);
     player_top = new QGraphicsRectItem(4, -1, 24, 1, this);
     player_bottom = new QGraphicsRectItem(4, 32, 24, 1, this);
 
-    //player_left->setPen(Qt::NoPen);
-    //player_right->setPen(Qt::NoPen);
-    //player_top->setPen(Qt::NoPen);
-    //player_bottom->setPen(Qt::NoPen);
+//    player_left->setPen(Qt::NoPen);
+//    player_right->setPen(Qt::NoPen);
+//    player_top->setPen(Qt::NoPen);
+//    player_bottom->setPen(Qt::NoPen);
 
 
-    player_left -> setRect(0, 1, 2, 30);
-    player_right -> setRect(30, 1, 2, 30);
-    player_top ->  setRect(4, -1, 24, 1);
-    player_bottom ->  setRect(4, 32, 24, 1);
+//    player_left -> setRect(0, 1, 2, 30);
+//    player_right -> setRect(30, 1, 2, 30);
+//    player_top ->  setRect(4, -1, 24, 1);
+//    player_bottom ->  setRect(4, 32, 24, 1);
 
     timer = new QTimer(this);
    // QTimer * timer = new QTimer(this);

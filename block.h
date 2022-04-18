@@ -6,7 +6,7 @@
 #include <QDebug>
 #include <QGraphicsRectItem>
 class block: public QObject, public QGraphicsRectItem
-// block: public QObject, public QGraphicsPixmapItem
+//class block: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:

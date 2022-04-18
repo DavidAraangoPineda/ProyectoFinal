@@ -1,7 +1,15 @@
 <RCC>
     <qresource prefix="/imagenes">
         <file>fondo.jpg</file>
-        <file>nave.png</file>
+        <file>player.png</file>
         <file>bloque.jpg</file>
+        <file>fondo1.jpg</file>
+        <file>pixel.jpg</file>
+        <file>nivel1.jpg</file>
+    </qresource>
+    <qresource prefix="/sound">
+        <file>Intro.mp3</file>
+        <file>Space Dance II Space Music Musica del Espacio.mp3</file>
+        <file>nivel1.mp3</file>
     </qresource>
 </RCC>

@@ -24,9 +24,6 @@ public slots:
     void update();
 
 
-
-
-
 private:
     float accl = 0.10;
     float maxSpeed = 1.8;
@@ -50,8 +47,6 @@ private:
     QGraphicsRectItem * player_top;
     QGraphicsRectItem * player_right;
     QGraphicsRectItem * player_left;
-    QGraphicsRectItem * player_precise_top;
-    QGraphicsRectItem * player_precise_bottom;
 
     QTimer *timer;
 };
