@@ -7,7 +7,8 @@
 #include <QImage>
 #include <QGraphicsRectItem>
 #include <QTimer>
-
+#include <QBrush>
+//class Cube: public QObject, public QGraphicsRectItem{
 class Cube: public QObject, public QGraphicsPixmapItem{
     Q_OBJECT
 
@@ -16,27 +17,31 @@ public:
     void colliding_block();
     void moveCube();
 
+
 public slots:
+
     void update();
 
 
 private:
+
+
     float accl = 0.10;
     float maxSpeed = 1.8;
-    float jumpCounterMax = 20;
-    float jumpCounter = 0;
     float gravityMaxSpeed = 3;
     float velX = 0;
     float velY = 0;
-    bool isMovingRight=false;
-    bool isMovingLeft=false;
-    bool isJumping=false;
+
     bool isCollidingRight = false;
     bool isCollidingLeft = false;
     bool isCollidingBottom = false;
     bool isCollidingTop = false;
-    bool isMidJump = false;
-    bool stopControls = false;
+
+    bool isCollidingRightPlayer = false;
+    bool isCollidingLeftPlayer = false;
+    bool isCollidingBottomPlayer = false;
+    bool isCollidingTopPlayer = false;
+
     bool stopGravity = false;
 
     QGraphicsRectItem * cube_bottom;

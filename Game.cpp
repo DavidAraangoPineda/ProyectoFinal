@@ -30,6 +30,7 @@ void Game::menu()
     setBackgroundBrush(QBrush(QImage(":imagenes/pixel.jpg")));
 
     music->setMedia(QUrl("qrc:/sound/Intro.mp3"));
+    music->setVolume(30);
     music->play();
 
     QGraphicsTextItem * titleText = new QGraphicsTextItem(QString("Petroboy & Ficogirl"));
@@ -74,42 +75,65 @@ void Game::menu()
 void Game::Level1()
 {
     scene->clear();
-    setBackgroundBrush(QBrush(QImage(":imagenes/nivel1.jpg")));
-
+    //setBackgroundBrush(QBrush(QImage(":imagenes/nivel1.jpg")));
+        //setSceneRect()
     player = new Player();
     player->setPos(100,400);
     player->setFlag(QGraphicsItem::ItemIsFocusable);
     player->setFocus();
     scene->addItem(player);
 
+
+//    cube=new Cube();
+//    cube->setPos(150,400);
+
+//    scene->addItem(cube);
+
+    cube=new Cube();
+    cube->setPos(170,350);
+    scene->addItem(cube);
+
+
     music->setMedia(QUrl("qrc:/sound/nivel1.mp3"));
-    music->play();
+    music->setVolume(10);
+    //music->play();
 
-    block = new class block();
-    block->setRect(0,0,800,50);
-    block->setPos(0,450);
+    Block = new class block();
+    Block->setRect(0,0,800,50);
+    Block->setPos(0,450);
 
-    scene->addItem(block);
+    scene->addItem(Block);
 
-    block = new class block();
-    block->setRect(0,0,50,50);
-    block->setPos(0,370);
-    scene->addItem(block);
+    Block = new class block();
+    Block->setRect(0,0,50,50);
+    Block->setPos(250,400);
+    scene->addItem(Block);
 
-    block = new class block();
-    block->setRect(0,0,50,50);
-    block->setPos(100,320);
-    scene->addItem(block);
+    Block = new class block();
+    Block->setRect(0,0,50,50);
+    Block->setPos(0,400);
+    scene->addItem(Block);
 
-    block = new class block();
-    block->setRect(0,0,50,50);
-    block->setPos(100,320);
-    scene->addItem(block);
+    Block = new class block();
+    Block->setRect(0,0,50,50);
+    Block->setPos(100,320);
+    scene->addItem(Block);
+
+    Block = new class block();
+    Block->setRect(0,0,50,50);
+    Block->setPos(100,320);
+    scene->addItem(Block);
 
     show();
 }
 void Game::Level2()
 {
+    int matriz[30][25],filas,columnas;
+    for (int i=0;i<filas;i++){
+        for(int j=0;j<columnas;j++){
+           // cout<<"Digite un nuer"
+        }
+    }
 
 }
 

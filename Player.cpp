@@ -5,6 +5,7 @@
 #include <QDebug>
 #include <QList>
 #include <QProcess>
+#include <iostream>
 #include "Player.h"
 #include <block.h>
 #include <Game.h>
@@ -121,6 +122,7 @@ void Player::movePlayer()
 
 
     setPos(x() + velX, y() + velY);
+    //std::cout<<"Velocidad en X es: "<<velX<<"\n"<<"Velocidad en Y es: "<<velY;
 }
 
 void Player::colliding_block()
@@ -132,12 +134,14 @@ void Player::colliding_block()
     {
         for (QGraphicsItem *colliding_item : player_bottom->collidingItems())
         {
-            if (typeid(*colliding_item) == typeid(block))
+            if (typeid(*colliding_item) == typeid(block)||typeid(*colliding_item) == typeid(Cube))
             {
                 isCollidingBottom = true;
+                if (typeid(*colliding_item) == typeid(block)){
+                    if (colliding_item->y() != y() + pixmap().height())
+                        setPos(x(), colliding_item->y() - pixmap().height());}
 
-                if (colliding_item->y() != y() + pixmap().height())
-                    setPos(x(), colliding_item->y() - pixmap().height());
+
 
                 if (!isJumping)
                     jumpCounter = 0;

@@ -4,6 +4,7 @@
 block::block(QGraphicsItem *parent): QGraphicsRectItem(parent)
 {
     //block->setPos()
+    setRect(0,0,25,25);
     QBrush brush;
     brush.setStyle(Qt::Dense2Pattern);
     brush.setColor(Qt::gray);

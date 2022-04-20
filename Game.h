@@ -10,6 +10,7 @@
 #include "floor_block.h"
 #include "block.h"
 #include "Button.h"
+#include "Cube.h"
 
 class Game: public QGraphicsView{
     Q_OBJECT
@@ -22,8 +23,10 @@ public:
     void menu();
     QGraphicsScene *scene;
     Player * player;
-    block * block;
+    block * Block;
     QMediaPlayer * music;
+    Cube *cube;
+    int floor = 416;
 
 public slots:
     void Level1();
