@@ -6,9 +6,13 @@
         <file>pixel.jpg</file>
         <file>nivel1.jpg</file>
         <file>bloque.jpg</file>
+        <file>fall_block.png</file>
+        <file>spikes.png</file>
+        <file>door.png</file>
     </qresource>
     <qresource prefix="/sound">
         <file>Intro.mp3</file>
         <file>nivel1.mp3</file>
+        <file>dead.mp3</file>
     </qresource>
 </RCC>

@@ -14,8 +14,10 @@ SOURCES += \
     Game.cpp \
     Player.cpp \
     block.cpp \
+    door.cpp \
     fall_block.cpp \
-    main.cpp
+    main.cpp \
+    spikes.cpp
 
 HEADERS += \
     Button.h \
@@ -23,7 +25,9 @@ HEADERS += \
     Game.h \
     Player.h \
     block.h \
-    fall_block.h
+    door.h \
+    fall_block.h \
+    spikes.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

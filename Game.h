@@ -10,6 +10,10 @@
 #include "block.h"
 #include "Button.h"
 #include "Cube.h"
+#include "fall_block.h"
+#include "spikes.h"
+#include "door.h"
+
 
 class Game: public QGraphicsView{
     Q_OBJECT
@@ -26,12 +30,15 @@ public:
     block * Block;
     QMediaPlayer * music;
     Cube *cube;
+    fall_block *Fall_block;
+    spikes *Spikes;
+    door *Door;
 
 public slots:
     void Level1();
     void Level2();
     void Level3();
-    void start_game();
+    void load_level();
 
 };
 

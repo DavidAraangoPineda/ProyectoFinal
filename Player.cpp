@@ -9,6 +9,7 @@
 #include <iostream>
 #include "Player.h"
 #include <block.h>
+#include <spikes.h>
 #include <Game.h>
 
 
@@ -18,6 +19,9 @@ Player::Player(QGraphicsItem *parent)
 {
 
     setPixmap(QPixmap(":/imagenes/player.png"));
+     deadMusic = new QMediaPlayer();
+
+    deadMusic->setMedia(QUrl("qrc:/sound/dead.mp3"));
 
     player_left = new QGraphicsRectItem(0, 1, 2, 30, this);
     player_right = new QGraphicsRectItem(30, 1, 2, 30, this);
@@ -38,7 +42,7 @@ Player::Player(QGraphicsItem *parent)
     timer = new QTimer(this);
    // QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(update()));
-    timer->start(20);
+    timer->start(15);
 }
 
 void Player::update(){
@@ -138,7 +142,9 @@ void Player::colliding_block()
     {
         for (QGraphicsItem *colliding_item : player_bottom->collidingItems())
         {
-            if (typeid(*colliding_item) == typeid(block)||typeid(*colliding_item) == typeid(Cube))
+            if (typeid(*colliding_item) == typeid(block)||
+                typeid(*colliding_item) == typeid(Cube)||
+                typeid(*colliding_item) == typeid(fall_block))
             {
                 isCollidingBottom = true;
                 if (typeid(*colliding_item) == typeid(block)){
@@ -165,7 +171,8 @@ void Player::colliding_block()
     {
         for (QGraphicsItem *colliding_item : player_top->collidingItems())
         {
-            if (typeid(*colliding_item) == typeid(block))
+            if (typeid(*colliding_item) == typeid(block)||
+                    typeid(*colliding_item) == typeid(fall_block))
             {
                 isCollidingTop = true;
                 if (isMidJump)
@@ -187,7 +194,8 @@ void Player::colliding_block()
     {
         for (QGraphicsItem *colliding_item : player_right->collidingItems())
         {
-            if (typeid(*colliding_item) == typeid(block))
+            if (typeid(*colliding_item) == typeid(block)||
+                    typeid(*colliding_item) == typeid(fall_block))
             {
                 isCollidingRight = true;
             }
@@ -206,7 +214,8 @@ void Player::colliding_block()
     {
         for (QGraphicsItem *colliding_item : player_left->collidingItems())
         {
-            if (typeid(*colliding_item) == typeid(block))
+            if (typeid(*colliding_item) == typeid(block)||
+                    typeid(*colliding_item) == typeid(fall_block))
             {
                 isCollidingLeft = true;
             }
@@ -221,18 +230,77 @@ void Player::colliding_block()
         isCollidingLeft = false;
     }
 
+    if (player_bottom->collidingItems().size() > 0||
+            player_top->collidingItems().size() > 0||
+            player_left->collidingItems().size() > 0||
+            player_right->collidingItems().size() > 0)
+    {
+        for (QGraphicsItem *colliding_item : player_bottom->collidingItems())
+        {
+            if (typeid(*colliding_item) == typeid(spikes))
+            {
+                isDead = true;
+            }
+            if (typeid(*colliding_item) == typeid(door))
+            {
+                next_level = true;
+            }
+
+        }
+        for (QGraphicsItem *colliding_item : player_top->collidingItems())
+        {
+            if (typeid(*colliding_item) == typeid(spikes))
+            {
+                isDead = true;
+            }
+            if (typeid(*colliding_item) == typeid(door))
+            {
+                next_level = true;
+            }
+
+        }
+        for (QGraphicsItem *colliding_item : player_left->collidingItems())
+        {
+            if (typeid(*colliding_item) == typeid(spikes))
+            {
+                isDead = true;
+            }
+            if (typeid(*colliding_item) == typeid(door))
+            {
+                next_level = true;
+            }
+
+        }
+        for (QGraphicsItem *colliding_item : player_right->collidingItems())
+        {
+            if (typeid(*colliding_item) == typeid(spikes))
+            {
+                isDead = true;
+            }
+            if (typeid(*colliding_item) == typeid(door))
+            {
+                next_level = true;
+            }
+
+        }
+    }
+
 
     if (pixmap().width()+pos().y() >scene()->height()){isDead=true;}
 
     if(isDead){
-        game->start_game();
+        game->load_level();
+        deadMusic->play();
         isDead=false;
     }
+//    if (next_level){
+//        game->
+
+//    }
 
 
 
-
-    }
+}
 
 
 

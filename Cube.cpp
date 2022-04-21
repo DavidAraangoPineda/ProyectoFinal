@@ -49,7 +49,7 @@ Cube::Cube(QGraphicsItem *parent)
     timer = new QTimer(this);
    // QTimer * timer = new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(update()));
-    timer->start(20);
+    timer->start(15);
 }
 
 void Cube::update(){

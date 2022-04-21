@@ -8,9 +8,9 @@
 #include <QGraphicsRectItem>
 #include <QTimer>
 #include <QBrush>
-class fall_block:public QObject, public QGraphicsRectItem{
-    Q_OBJECT
-//class fall_block:public QObject, public QGraphicsPixmapItem{
+//class fall_block:public QObject, public QGraphicsRectItem{
+class fall_block:public QObject, public QGraphicsPixmapItem{
+        Q_OBJECT
 public:
     fall_block(QGraphicsItem *parent = 0);
     void colliding_player();
@@ -27,7 +27,6 @@ private:
     float accl = 0.10;
     float maxSpeed = 1.8;
     float gravityMaxSpeed = 3;
-    float velX = 0;
     float velY = 0;
 
     bool isCollidingRight = false;
