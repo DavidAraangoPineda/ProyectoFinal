@@ -11,61 +11,51 @@
 #include <Game.h>
 #include <Player.h>
 #include <QBrush>
+#include "fall_block.h"
 
-Cube::Cube(QGraphicsItem *parent)
+fall_block::fall_block(QGraphicsItem *parent)
 {
-
-    setPixmap(QPixmap(":/imagenes/bloque.jpg"));
+    //setPixmap(QPixmap(":/imagenes/bloque.jpg"));
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::red);
-    cube_left = new QGraphicsRectItem(0, 1, 2, 30, this);
-    cube_right = new QGraphicsRectItem(32, 1, 2,30, this);
-    cube_top = new QGraphicsRectItem(4, -1, 24, 1, this);
-    cube_bottom = new QGraphicsRectItem(10, 32, 10, 1, this);//(Posicion inicial de x, 32, Ancho, Altura, this)
+    fall_block_left = new QGraphicsRectItem(-2, 10, 5, 15, this);
+    fall_block_right = new QGraphicsRectItem(32, 10, 2,15, this);
+    fall_block_top = new QGraphicsRectItem(4, -1, 24, 1, this);
+    fall_block_bottom = new QGraphicsRectItem(4, 32, 24, 1, this);//(Posicion inicial de x, 32, Ancho, Altura, this)
 
+    //    fall_block_left->setBrush(brush);
+    //    fall_block_right->setBrush(brush);
+    //    fall_block_top->setBrush(brush);
+    //    fall_block_bottom->setBrush(brush);
+        fall_block_left->setPen(Qt::NoPen);
+        fall_block_right->setPen(Qt::NoPen);
+        fall_block_top->setPen(Qt::NoPen);
+        fall_block_bottom->setPen(Qt::NoPen);
 
-//    player_left = new QGraphicsRectItem(0, 1, 2, 30, this);
-//    player_right = new QGraphicsRectItem(30, 1, 2, 30, this);
-//    player_top = new QGraphicsRectItem(4, -1, 24, 1, this);
-//    player_bottom = new QGraphicsRectItem(4, 32, 24, 1, this);
-
-//    cube_left->setBrush(brush);
-//    cube_right->setBrush(brush);
-//    cube_top->setBrush(brush);
-//    cube_bottom->setBrush(brush);
-    cube_left->setPen(Qt::NoPen);
-    cube_right->setPen(Qt::NoPen);
-    cube_top->setPen(Qt::NoPen);
-    cube_bottom->setPen(Qt::NoPen);
-
-
-
-//    player_left -> setRect(0, 1, 2, 30);
-//    player_right -> setRect(30, 1, 2, 30);
-//    player_top ->  setRect(4, -1, 24, 1);
-//    player_bottom ->  setRect(4, 32, 24, 1);
-
-    timer = new QTimer(this);
-   // QTimer * timer = new QTimer(this);
-    connect(timer,SIGNAL(timeout()),this,SLOT(update()));
-    timer->start(20);
+        timer = new QTimer(this);
+       // QTimer * timer = new QTimer(this);
+        connect(timer,SIGNAL(timeout()),this,SLOT(update()));
+        timer->start(20);
 }
 
-void Cube::update(){
 
-    colliding_block();
-    moveCube();
+void fall_block::update(){
+
+    colliding_player();
+    move_fall_block();
 
 }
 
-void Cube::moveCube()
+void fall_block::move_fall_block()
 {
 
-    if (!isCollidingBottom&&pixmap().width()+pos().y() <scene()->height())
+    if (!isCollidingBottom)
     {
         velY += 0.15;
     }
+
+
 
     if ((isCollidingLeft && velX < 0) || (!isCollidingLeftPlayer))
         velX = 0;
@@ -93,33 +83,29 @@ void Cube::moveCube()
     //std::cout<<"Izquierda"<<isCollidingLeft<<"\n";
 }
 
-void Cube::colliding_block()
+void fall_block::colliding_player()
 {
     if(stopGravity){return;}
 
 
-    if (cube_bottom->collidingItems().size() > 0)
+    if (fall_block_bottom->collidingItems().size() > 0)
     {
-        for (QGraphicsItem *colliding_item : cube_bottom->collidingItems())
+        for (QGraphicsItem *colliding_item : fall_block_bottom->collidingItems())
         {
-            if (typeid(*colliding_item) == typeid(block))
+            if (typeid(*colliding_item) == typeid(Cube)||
+                typeid(*colliding_item) == typeid(block))
             {
                 isCollidingBottom = true;
             }
             else
             {
                 isCollidingBottom = false;
-
             }
         }
     }
-    else
+    if (fall_block_top->collidingItems().size() > 0)
     {
-        isCollidingBottom = false;
-    }
-    if (cube_top->collidingItems().size() > 0)
-    {
-        for (QGraphicsItem *colliding_item : cube_top->collidingItems())
+        for (QGraphicsItem *colliding_item : fall_block_top->collidingItems())
         {
             if (typeid(*colliding_item) == typeid(Cube)||
                 typeid(*colliding_item) == typeid(block))
@@ -132,9 +118,9 @@ void Cube::colliding_block()
             }
         }
     }
-    if (cube_right->collidingItems().size() > 0)
+    if (fall_block_right->collidingItems().size() > 0)
     {
-        for (QGraphicsItem *colliding_item : cube_right->collidingItems())
+        for (QGraphicsItem *colliding_item : fall_block_right->collidingItems())
         {
             if (
                 typeid(*colliding_item) == typeid(block))
@@ -148,9 +134,9 @@ void Cube::colliding_block()
             }
         }
     }
-    if (cube_left->collidingItems().size() > 0)
+    if (fall_block_left->collidingItems().size() > 0)
     {
-        for (QGraphicsItem *colliding_item : cube_left->collidingItems())
+        for (QGraphicsItem *colliding_item : fall_block_left->collidingItems())
         {
             if (typeid(*colliding_item) == typeid(block))
             {
@@ -165,13 +151,13 @@ void Cube::colliding_block()
     }
 
     //COLISION JUGADOR CON BLOQUE POR IZQUIERDA DEL BLOQUE
-    if (cube_left->collidingItems().size() > 0)
+    if (fall_block_left->collidingItems().size() > 0)
     {
-        for (QGraphicsItem *colliding_item : cube_left->collidingItems())
+        for (QGraphicsItem *colliding_item : fall_block_left->collidingItems())
         {
             if (typeid(*colliding_item) == typeid(Player))
             {
-                //std::cout<<"Izquierda";
+                std::cout<<"Izquierda";
                 isCollidingLeftPlayer = true;
             }
             else
@@ -181,9 +167,9 @@ void Cube::colliding_block()
         }
     }
     //COLISION JUGADOR CON BLOQUE POR DERECHA DEL BLOQUE
-    if (cube_right->collidingItems().size() > 0)
+    if (fall_block_right->collidingItems().size() > 0)
     {
-        for (QGraphicsItem *colliding_item : cube_right->collidingItems())
+        for (QGraphicsItem *colliding_item : fall_block_right->collidingItems())
         {
             if (typeid(*colliding_item) == typeid(Player))
             {

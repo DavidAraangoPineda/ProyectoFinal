@@ -18,7 +18,6 @@ Button::Button(QString name, QGraphicsItem *parent)
     int yPos = rect().height()/2 - text->boundingRect().height()/2;
     text->setPos(xPos,yPos);
 
-
     setAcceptHoverEvents(true);
 }
 

@@ -14,7 +14,7 @@ SOURCES += \
     Game.cpp \
     Player.cpp \
     block.cpp \
-    floor_block.cpp \
+    fall_block.cpp \
     main.cpp
 
 HEADERS += \
@@ -23,7 +23,7 @@ HEADERS += \
     Game.h \
     Player.h \
     block.h \
-    floor_block.h
+    fall_block.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

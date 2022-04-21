@@ -9,6 +9,7 @@ class block: public QObject, public QGraphicsRectItem
 //class block: public QObject, public QGraphicsPixmapItem
 {
     Q_OBJECT
+
 public:
     block(QGraphicsItem * parent = 0);
 

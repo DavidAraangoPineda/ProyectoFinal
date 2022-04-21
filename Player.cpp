@@ -1,6 +1,7 @@
 #include <QGraphicsRectItem>
 #include <QObject>
 #include <QGraphicsItem>
+#include <QGraphicsScene>
 #include <QKeyEvent>
 #include <QDebug>
 #include <QList>
@@ -9,6 +10,9 @@
 #include "Player.h"
 #include <block.h>
 #include <Game.h>
+
+
+extern Game *game; // llamar una variable externa para interactuar con ella
 
 Player::Player(QGraphicsItem *parent)
 {
@@ -41,6 +45,7 @@ void Player::update(){
 
     colliding_block();
     movePlayer();
+ //   dying();
 
 }
 
@@ -103,7 +108,7 @@ void Player::movePlayer()
 
     if (!isCollidingBottom && velY < gravityMaxSpeed)
     {
-        velY += 0.15;
+        velY += 0.2;
         if (!isMidJump)
             jumpCounter = jumpCounterMax;
     }
@@ -128,7 +133,6 @@ void Player::movePlayer()
 void Player::colliding_block()
 {
     if(stopGravity){return;}
-
 
     if (player_bottom->collidingItems().size() > 0)
     {
@@ -217,5 +221,19 @@ void Player::colliding_block()
         isCollidingLeft = false;
     }
 
+
+    if (pixmap().width()+pos().y() >scene()->height()){isDead=true;}
+
+    if(isDead){
+        game->start_game();
+        isDead=false;
     }
+
+
+
+
+    }
+
+
+
 

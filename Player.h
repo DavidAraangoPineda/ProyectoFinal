@@ -19,6 +19,7 @@ public:
     void keyReleaseEvent(QKeyEvent * event) override;
     void colliding_block();
     void movePlayer();
+    void dying();
 
 public slots:
     void update();
@@ -42,6 +43,7 @@ private:
     bool isMidJump = false;   
     bool stopControls = false;
     bool stopGravity = false;
+    bool isDead = false;
 
     QGraphicsRectItem * player_bottom;
     QGraphicsRectItem * player_top;
@@ -49,6 +51,8 @@ private:
     QGraphicsRectItem * player_left;
 
     QTimer *timer;
+
+    //void restart_game();
 };
 
 #endif // PLAYER_H
