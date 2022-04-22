@@ -1,18 +1,34 @@
 <RCC>
     <qresource prefix="/imagenes">
-        <file>fondo.jpg</file>
-        <file>player.png</file>
-        <file>fondo1.jpg</file>
-        <file>pixel.jpg</file>
-        <file>nivel1.jpg</file>
-        <file>bloque.jpg</file>
-        <file>fall_block.png</file>
-        <file>spikes.png</file>
-        <file>door.png</file>
+        <file>imagenes/bloque.jpg</file>
+        <file>imagenes/cat_der.png</file>
+        <file>imagenes/cat_izq.png</file>
+        <file>imagenes/door.png</file>
+        <file>imagenes/fall_block.png</file>
+        <file>imagenes/fondo.jpg</file>
+        <file>imagenes/fondo1.jpg</file>
+        <file>imagenes/nivel1.jpg</file>
+        <file>imagenes/pixel.jpg</file>
+        <file>imagenes/player.png</file>
+        <file>imagenes/spikes.png</file>
+        <file>imagenes/player_der.png</file>
+        <file>imagenes/player_down.png</file>
+        <file>imagenes/player_izq.png</file>
+        <file>imagenes/player_up.png</file>
+        <file>imagenes/player_quiet.png</file>
+        <file>imagenes/resorte.png</file>
+        <file>imagenes/nivel2.jpg</file>
+        <file>imagenes/nivel3.jpg</file>
+        <file>imagenes/duque.png</file>
+        <file>imagenes/fico.png</file>
     </qresource>
     <qresource prefix="/sound">
         <file>Intro.mp3</file>
         <file>nivel1.mp3</file>
         <file>dead.mp3</file>
+        <file>dead2.mp3</file>
+        <file>nivel2.mp3</file>
+        <file>nivel3.mp3</file>
+        <file>atrape.mp3</file>
     </qresource>
 </RCC>

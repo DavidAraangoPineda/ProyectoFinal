@@ -24,7 +24,6 @@ public:
     void colliding_block();
     void movePlayer();
     void dying();
-    QMediaPlayer * deadMusic;
         bool isDead = false;
 
 public slots:

@@ -14,9 +14,11 @@ SOURCES += \
     Game.cpp \
     Player.cpp \
     block.cpp \
+    bullet.cpp \
     door.cpp \
     fall_block.cpp \
     main.cpp \
+    resort.cpp \
     spikes.cpp
 
 HEADERS += \
@@ -25,8 +27,10 @@ HEADERS += \
     Game.h \
     Player.h \
     block.h \
+    bullet.h \
     door.h \
     fall_block.h \
+    resort.h \
     spikes.h
 
 # Default rules for deployment.

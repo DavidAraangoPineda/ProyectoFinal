@@ -17,7 +17,7 @@
 
 fall_block::fall_block(QGraphicsItem *parent)
 {
-    setPixmap(QPixmap(":/imagenes/fall_block.png"));
+    setPixmap(QPixmap(":/imagenes/imagenes/fall_block.png"));
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::red);
@@ -30,10 +30,10 @@ fall_block::fall_block(QGraphicsItem *parent)
 //        fall_block_right->setBrush(brush);
 //        fall_block_top->setBrush(brush);
 //        fall_block_bottom->setBrush(brush);
-//        fall_block_left->setPen(Qt::NoPen);
-//        fall_block_right->setPen(Qt::NoPen);
-//        fall_block_top->setPen(Qt::NoPen);
-//        fall_block_bottom->setPen(Qt::NoPen);
+        fall_block_left->setPen(Qt::NoPen);
+        fall_block_right->setPen(Qt::NoPen);
+        fall_block_top->setPen(Qt::NoPen);
+        fall_block_bottom->setPen(Qt::NoPen);
 
         timer = new QTimer(this);
         connect(timer,SIGNAL(timeout()),this,SLOT(update()));

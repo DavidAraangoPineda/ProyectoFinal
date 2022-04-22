@@ -19,6 +19,8 @@
 #include "fall_block.h"
 #include "spikes.h"
 #include "door.h"
+#include "resort.h"
+#include "bullet.h"
 using namespace std;
 
 class Game: public QGraphicsView{
@@ -37,10 +39,13 @@ public:
     Player * player;
     block * Block;
     QMediaPlayer * music;
+        QMediaPlayer * musica;
     Cube *cube;
     fall_block *Fall_block;
     spikes *Spikes;
     door *Door;
+    resort *Resort;
+    bullet *Bullet;
 
 public slots:
     void Level1();
@@ -52,6 +57,7 @@ public slots:
     void load_next_level();
     int leer_txt();
     void string_a_txt();
+    void sonido();
 };
 
 

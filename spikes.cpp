@@ -13,7 +13,7 @@
 
 spikes::spikes(QGraphicsItem *parent)
 {
-    setPixmap(QPixmap(":/imagenes/spikes.png"));
+    setPixmap(QPixmap(":/imagenes/imagenes/spikes.png"));
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::red);

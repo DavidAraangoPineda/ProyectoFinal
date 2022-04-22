@@ -14,7 +14,7 @@
 
 door::door(QGraphicsItem *parent)
 {
-    setPixmap(QPixmap(":/imagenes/door.png"));
+    setPixmap(QPixmap(":/imagenes/imagenes/door.png"));
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::red);

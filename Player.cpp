@@ -7,10 +7,13 @@
 #include <QList>
 #include <QProcess>
 #include <iostream>
+#include <stdlib.h> // rand() -> really large int
 #include "Player.h"
 #include <block.h>
 #include <spikes.h>
 #include <fall_block.h>
+#include <bullet.h>
+#include <resort.h>
 #include <Game.h>
 
 //extern fall_block *Fall_block;
@@ -19,20 +22,19 @@ extern Game *game; // llamar una variable externa para interactuar con ella
 Player::Player(QGraphicsItem *parent)
 {
 
-    setPixmap(QPixmap(":/imagenes/player.png"));
-     deadMusic = new QMediaPlayer();
 
-    deadMusic->setMedia(QUrl("qrc:/sound/dead.mp3"));
+    //setPixmap(QPixmap(":/imagenes/imagenes/player_quiet.png"));
+
 
     player_left = new QGraphicsRectItem(0, 1, 2, 30, this);
     player_right = new QGraphicsRectItem(30, 1, 2, 30, this);
     player_top = new QGraphicsRectItem(4, -1, 24, 1, this);
     player_bottom = new QGraphicsRectItem(4, 32, 24, 1, this);
 
-//    player_left->setPen(Qt::NoPen);
-//    player_right->setPen(Qt::NoPen);
-//    player_top->setPen(Qt::NoPen);
-//    player_bottom->setPen(Qt::NoPen);
+    player_left->setPen(Qt::NoPen);
+    player_right->setPen(Qt::NoPen);
+    player_top->setPen(Qt::NoPen);
+    player_bottom->setPen(Qt::NoPen);
 
 
 //    player_left -> setRect(0, 1, 2, 30);
@@ -56,14 +58,17 @@ void Player::update(){
 
 void Player::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Left)
+    if (event->key() == Qt::Key_Left){
         isMovingLeft = true;
+        setPixmap(QPixmap(":/imagenes/imagenes/player_izq.png"));}
 
-    if (event->key() == Qt::Key_Right)
+    if (event->key() == Qt::Key_Right){
         isMovingRight = true;
+        setPixmap(QPixmap(":/imagenes/imagenes/player_der.png"));}
 
-    if (event->key() == Qt::Key_Up)
+    if (event->key() == Qt::Key_Up){
         isJumping = true;
+        setPixmap(QPixmap(":/imagenes/imagenes/player_up.png"));}
 }
 
 void Player::keyReleaseEvent(QKeyEvent *event)
@@ -80,6 +85,8 @@ void Player::keyReleaseEvent(QKeyEvent *event)
 
 void Player::movePlayer()
 {
+
+    if (velY>0){setPixmap(QPixmap(":/imagenes/imagenes/player_down.png"));}
     if(stopGravity)
         return;
 
@@ -238,7 +245,8 @@ void Player::colliding_block()
     {
         for (QGraphicsItem *colliding_item : player_bottom->collidingItems())
         {
-            if (typeid(*colliding_item) == typeid(spikes))
+            if (typeid(*colliding_item) == typeid(spikes)||
+                    typeid(*colliding_item) == typeid(bullet))
             {
                 isDead = true;
             }
@@ -250,7 +258,8 @@ void Player::colliding_block()
         }
         for (QGraphicsItem *colliding_item : player_top->collidingItems())
         {
-            if (typeid(*colliding_item) == typeid(spikes))
+            if (typeid(*colliding_item) == typeid(spikes)||
+                    typeid(*colliding_item) == typeid(bullet))
             {
                 isDead = true;
             }
@@ -262,7 +271,8 @@ void Player::colliding_block()
         }
         for (QGraphicsItem *colliding_item : player_left->collidingItems())
         {
-            if (typeid(*colliding_item) == typeid(spikes))
+            if (typeid(*colliding_item) == typeid(spikes)||
+                    typeid(*colliding_item) == typeid(bullet))
             {
                 isDead = true;
             }
@@ -274,7 +284,8 @@ void Player::colliding_block()
         }
         for (QGraphicsItem *colliding_item : player_right->collidingItems())
         {
-            if (typeid(*colliding_item) == typeid(spikes))
+            if (typeid(*colliding_item) == typeid(spikes)||
+                    typeid(*colliding_item) == typeid(bullet))
             {
                 isDead = true;
             }
@@ -284,16 +295,22 @@ void Player::colliding_block()
             }
 
         }
+        for (QGraphicsItem *colliding_item : player_bottom->collidingItems())
+        {
+            if (typeid(*colliding_item) == typeid(resort))
+            {
+                velY=velY*-2;
+            }
+
+        }
     }
 
 
-    if (pixmap().width()+pos().y() >scene()->height()){isDead=true;}
+    if (pixmap().height()+pos().y() >scene()->height()){isDead=true;}
 
     if(isDead){
         isDead=false;
         game->load_level();
-        //deadMusic->play();
-
     }
     if(next_level){
         next_level=false;
@@ -305,8 +322,4 @@ void Player::colliding_block()
 
 
 }
-
-
-
-
 

@@ -15,7 +15,7 @@
 Cube::Cube(QGraphicsItem *parent)
 {
 
-    setPixmap(QPixmap(":/imagenes/bloque.jpg"));
+    setPixmap(QPixmap(":/imagenes/imagenes/bloque.jpg"));
     QBrush brush;
     brush.setStyle(Qt::SolidPattern);
     brush.setColor(Qt::red);
