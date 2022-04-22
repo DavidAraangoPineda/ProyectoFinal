@@ -22,11 +22,6 @@ public slots:
 
 
 private:
-
-
-    float accl = 0.10;
-    float maxSpeed = 1.8;
-    float gravityMaxSpeed = 3;
     float velY = 0;
 
     bool isCollidingRight = false;

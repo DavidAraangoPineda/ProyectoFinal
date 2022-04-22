@@ -10,9 +10,10 @@
 #include "Player.h"
 #include <block.h>
 #include <spikes.h>
+#include <fall_block.h>
 #include <Game.h>
 
-
+//extern fall_block *Fall_block;
 extern Game *game; // llamar una variable externa para interactuar con ella
 
 Player::Player(QGraphicsItem *parent)
@@ -289,9 +290,16 @@ void Player::colliding_block()
     if (pixmap().width()+pos().y() >scene()->height()){isDead=true;}
 
     if(isDead){
-        game->load_level();
-        deadMusic->play();
         isDead=false;
+        game->load_level();
+        //deadMusic->play();
+
+    }
+    if(next_level){
+        next_level=false;
+        game->load_next_level();
+        //deadMusic->play();
+
     }
 //    if (next_level){
 //        game->

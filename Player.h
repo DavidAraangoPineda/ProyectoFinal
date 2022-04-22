@@ -8,6 +8,7 @@
 #include <QGraphicsRectItem>
 #include <QTimer>
 #include <QMediaPlayer>
+#include <fall_block.h>
 
 //class Player: public QObject, public QGraphicsPixmapItem,public QGraphicsRectItem{
 class Player: public QObject, public QGraphicsPixmapItem{
@@ -22,6 +23,7 @@ public:
     void movePlayer();
     void dying();
     QMediaPlayer * deadMusic;
+        bool isDead = false;
 
 public slots:
     void update();
@@ -45,7 +47,7 @@ private:
     bool isMidJump = false;   
     bool stopControls = false;
     bool stopGravity = false;
-    bool isDead = false;
+
     bool next_level = false;
 
     QGraphicsRectItem * player_bottom;

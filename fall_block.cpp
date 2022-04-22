@@ -13,6 +13,8 @@
 #include <QBrush>
 #include "fall_block.h"
 
+
+
 fall_block::fall_block(QGraphicsItem *parent)
 {
     setPixmap(QPixmap(":/imagenes/fall_block.png"));
@@ -28,14 +30,15 @@ fall_block::fall_block(QGraphicsItem *parent)
 //        fall_block_right->setBrush(brush);
 //        fall_block_top->setBrush(brush);
 //        fall_block_bottom->setBrush(brush);
-        fall_block_left->setPen(Qt::NoPen);
-        fall_block_right->setPen(Qt::NoPen);
-        fall_block_top->setPen(Qt::NoPen);
-        fall_block_bottom->setPen(Qt::NoPen);
+//        fall_block_left->setPen(Qt::NoPen);
+//        fall_block_right->setPen(Qt::NoPen);
+//        fall_block_top->setPen(Qt::NoPen);
+//        fall_block_bottom->setPen(Qt::NoPen);
 
         timer = new QTimer(this);
         connect(timer,SIGNAL(timeout()),this,SLOT(update()));
         timer->start(20);
+
 }
 
 
@@ -60,6 +63,7 @@ void fall_block::move_fall_block()
 
 void fall_block::colliding_player()
 {  
+
     if (fall_block_top->collidingItems().size() > 0)
     {
         for (QGraphicsItem *colliding_item : fall_block_top->collidingItems())
@@ -72,7 +76,7 @@ void fall_block::colliding_player()
 
         }
     }
-    if (pixmap().width()+pos().y() >570){isCollidingTopPlayer=false;velY = 0;}
+    if ((pixmap().width()+pos().y() >570)){isCollidingTopPlayer=false;velY = 0;}
 
 }
 
