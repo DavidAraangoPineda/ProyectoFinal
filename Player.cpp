@@ -298,17 +298,14 @@ void Player::colliding_block()
     if(next_level){
         next_level=false;
         game->load_next_level();
+       // game->string_a_txt();
         //deadMusic->play();
 
     }
-//    if (next_level){
-//        game->
-
-//    }
-
 
 
 }
+
 
 
 

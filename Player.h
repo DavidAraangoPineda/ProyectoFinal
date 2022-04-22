@@ -8,6 +8,8 @@
 #include <QGraphicsRectItem>
 #include <QTimer>
 #include <QMediaPlayer>
+using namespace std;
+
 #include <fall_block.h>
 
 //class Player: public QObject, public QGraphicsPixmapItem,public QGraphicsRectItem{

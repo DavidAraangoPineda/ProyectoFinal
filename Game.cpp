@@ -23,27 +23,13 @@ Game::Game(QWidget *parent)
     setFixedSize(X_SIZE,Y_SIZE);
     scene->clear();
 
-
-    //scene->setBackgroundBrush(QBrush(QImage(":imagenes/fondo1.jpg")));
-    //scene->setBackgroundBrush(QBrush("#FFFFFF"));
-
-//    if (nivel==0){
-//        menu();
-//    }
-//    if (nivel==1){
-//        level1;
-//    }
-//    if (nivel==0){
-//        menu();
-//    }
-
 }
 
 void Game::menu()
 {
 
-    continua=leer_txt();
-    string_a_txt();
+        continua=leer_txt();
+
         scene->clear();
         //setBackgroundBrush(QBrush(QImage(":imagenes/pixel.jpg")));
 
@@ -71,23 +57,23 @@ void Game::menu()
         connect(playButton,SIGNAL(clicked()),this,SLOT(load_level1()));
         scene->addItem(playButton);
 
-    //    // crear boton salir
-
-        Button * quitButton = new Button(QString("Continue"));
-        int qxPos = this->width()/2 -quitButton->boundingRect().width()/2;
-        int qyPos = 270;
-        quitButton->setPos(qxPos,qyPos);
-        connect(quitButton,SIGNAL(clicked()),this,SLOT(load_level()));
-        scene->addItem(quitButton);
-
         // crear boton continuar
 
-        Button * Continue = new Button(QString("Exit"));
+        Button * Continue = new Button(QString("Continue"));
         int cxPos = this->width()/2 -Continue->boundingRect().width()/2;
-        int cyPos = 340;
+        int cyPos = 270;
         Continue->setPos(cxPos,cyPos);
-        connect(Continue,SIGNAL(clicked()),this,SLOT(leer_txt()));
+        connect(Continue,SIGNAL(clicked()),this,SLOT(load_continua()));
         scene->addItem(Continue);
+
+
+    //    // crear boton salir
+        Button * quitButton = new Button(QString("Exit"));
+        int qxPos = this->width()/2 -quitButton->boundingRect().width()/2;
+        int qyPos = 340;
+        quitButton->setPos(qxPos,qyPos);
+        connect(quitButton,SIGNAL(clicked()),this,SLOT(close()));
+        scene->addItem(quitButton);
 
 }
 
@@ -192,6 +178,7 @@ void Game::Level1()
 
     show();
 }
+
 void Game::Level2()
 {
 
@@ -208,32 +195,56 @@ void Game::Level2()
 
 
 }
+
 void Game::Level3()
 {
     nivel=2;
 }
 
 void Game::load_level(){
+
     if (nivel==1){
         scene->clear();
         Level1();
-
     }
     if (nivel==2){
+        scene->clear();
         Level2();
     }
     if (nivel==3){
+        scene->clear();
         Level3();
     }
 }
+
+void Game::load_continua(){
+    nivel=continua;
+
+    if (continua==1){
+        scene->clear();
+        Level1();
+    }
+    if (continua==2){
+        scene->clear();
+        Level2();
+    }
+    if (continua==3){
+        scene->clear();
+        Level3();
+    }
+}
+
 void Game::load_level1(){
     scene->clear();
     nivel=1;
     Level1();
+    nivel=0;
+    string_a_txt();
 }
+
 void Game::load_next_level(){
-    if (nivel==1){nivel=2;}
-    //if (nivel==2){nivel=3;}
+    if (nivel==1){string_a_txt();nivel=2;}
+    if (nivel==2){string_a_txt();nivel=3;}
     scene->clear();
     if (nivel==2){
         Level2();
@@ -272,17 +283,16 @@ int Game::leer_txt()
          }
 }
 
-void Game::string_a_txt(){//se le da un texto y lo inserta en nombrebin.dat
+void Game::string_a_txt(){
+    nivel=nivel+1;
+    string texto=to_string(nivel);
     fstream k;
-    string texto="marihuana.txt";
-    string nombrebin="mamachula.txt";
+    string nombrebin="nivel.txt";
     k.open(nombrebin,fstream::out|fstream::binary);
 
     if(k.is_open()){
-        //cout<<"Guardado correctamente"<<endl;
         k<<texto;
         }
-    else {cout<<"error al intentar abrir .dat"<<endl;}
     k.close();
     }
 

@@ -47,6 +47,7 @@ public slots:
     void Level2();
     void Level3();
     void load_level();
+    void load_continua();
     void load_level1();
     void load_next_level();
     int leer_txt();
